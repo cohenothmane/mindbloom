@@ -1,2 +1,2 @@
 # mindbloom
-tjr kawaiiné, tout le groupe est kawaii sauf kohen
+tjr kawaiiné, tout le groupe est kawaii sauf amine
