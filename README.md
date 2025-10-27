@@ -2,9 +2,9 @@
 tjr kawaiiné, tout le groupe est kawaii sauf amine
 
 to do list:
-    page principal : othmane
+    home : othmane
     mood tracker         : rayan 
-    quotes            : sahar
+    main            : sahar
     chat           : bennani
     task tracker          : amine 
 ZEN MINImaliste
