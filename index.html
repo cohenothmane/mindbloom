@@ -13,12 +13,39 @@
 
   <body>
     <div class="home">
-        <h1>Bienvenue sur mindbloom</h1>
-        
+      <h1>Mindbloom</h1>
+      <p>
+        Mindbloom est un site web créé pour encourager et remonter le moral des utilisateurs.
+        En un clic, le site affiche une phrase positive ou motivante afin d’apporter un peu
+        de soutien au quotidien. 
+      </p>
+      <p>
+        Le site comprend également un chat interactif avec une intelligence artificielle
+        permettant de discuter librement, partager ses pensées et recevoir des messages bienveillants.
+      </p>
+      <p>
+        Ce projet est développé par une équipe de cinq membres passionnés, dans le but
+        de créer un espace simple, positif et accessible à tous.
+      </p>
     </div>
 
     <main class="card" role="main">
-      <h1>main</h1>
+  <div class="container">
+    <h1>Choisis ton mood 🌿</h1>
+    
+    <select id="moodSelect">
+      <option value="">-- Sélectionne ton mood --</option>
+      <option value="joyeux">Joyeux(se) 😊</option>
+      <option value="fatigue">Fatigué(e) 😴</option>
+      <option value="colere">En colère 😠</option>
+      <option value="enerve">Énervé(e) 😤</option>
+      <option value="calme">Calme 🧘‍♀️</option>
+      <option value="triste">Triste 😢</option>
+    </select>
+    
+    <button id="showMessage">Afficher ma phrase</button>
+    <p id="message"></p>
+  </div>
     </main>
 
     <div class="mood_tracker">
