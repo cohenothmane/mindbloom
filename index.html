@@ -18,7 +18,22 @@
     </div>
 
     <main class="card" role="main">
-      <h1>main</h1>
+  <div class="container">
+    <h1>Choisis ton mood 🌿</h1>
+    
+    <select id="moodSelect">
+      <option value="">-- Sélectionne ton mood --</option>
+      <option value="joyeux">Joyeux(se) 😊</option>
+      <option value="fatigue">Fatigué(e) 😴</option>
+      <option value="colere">En colère 😠</option>
+      <option value="enerve">Énervé(e) 😤</option>
+      <option value="calme">Calme 🧘‍♀️</option>
+      <option value="triste">Triste 😢</option>
+    </select>
+    
+    <button id="showMessage">Afficher ma phrase</button>
+    <p id="message"></p>
+  </div>
     </main>
 
     <div class="mood_tracker">
@@ -35,6 +50,6 @@
         <h1>chat</h1>
     </div>
 
-    <script src="script.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
