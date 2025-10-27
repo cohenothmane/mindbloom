@@ -1,22 +1,40 @@
 /*
-  home
-*/
-
-/*
-  main
+  général
 */
 body {
   background-color: #f2f6f5;
   font-family: "Poppins", sans-serif;
   color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
+  min-height: 100vh;   /* minimum 100% de la hauteur de l'écran */
 }
 
+
+h1 {
+  font-size: 1.6em;
+  color: #466c5c;
+}
+/*
+  home
+*/
+.home {
+    width: 100vw;       /* largeur de l'écran */
+    height: 100vh;      /* hauteur de l'écran */
+    padding: 20px;      /* espace intérieur */
+    box-sizing: border-box; /* pour inclure le padding dans la taille */
+    background-color: #f2f6f5; /* fond doux, gris clair */
+    display: flex;      /* flex pour gérer le contenu */
+    flex-direction: column; /* texte en colonne */
+    justify-content: center; /* centrer verticalement le contenu */
+    align-items: center;     /* centrer horizontalement le contenu */
+    text-align: center;      /* texte centré */
+    font-family: 'Nunito', sans-serif; /* police douce */
+}
+
+
+/*
+  main
+*/
 .container {
   background: #ffffff;
   padding: 30px;
@@ -27,11 +45,6 @@ body {
   flex-direction: column; /* 🌸 vertical disposition */
   align-items: center;
   gap: 15px;
-}
-
-h1 {
-  font-size: 1.6em;
-  color: #466c5c;
 }
 
 select, button {
