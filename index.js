@@ -1,3 +1,8 @@
+//home
+
+
+
+//main
 const moodSelect = document.getElementById("moodSelect");
 const showMessage = document.getElementById("showMessage");
 const message = document.getElementById("message");
@@ -52,3 +57,14 @@ showMessage.addEventListener("click", () => {
     message.textContent = "Choisis d'abord ton mood 🌿";
   }
 });
+
+
+//mood_tracker
+
+
+
+//bloomGPT
+
+
+
+//task_tracker
