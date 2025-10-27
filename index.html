@@ -23,7 +23,52 @@
 
     <div class="mood_tracker">
         <h1>mood tracker</h1>
-        
+        <div id="moodScheduler">
+    <!-- Partie Rayan -->
+    <header class="top-chat">
+      <div class="chat-container">
+        <div id="chatWindow" class="chat-window">
+          <div class="message system">Bienvenue — entrez votre mood et l'heure pour l’ajouter à l’emploi du temps.</div>
+        </div>
+
+        <form id="entryForm" class="entry-form">
+          <select id="moodSelect">
+            <option value="joy">😀 Joyeux</option>
+            <option value="happy">🙂 Serein</option>
+            <option value="neutral">😐 Neutre</option>
+            <option value="sad">😞 Triste</option>
+            <option value="angry">😡 Énervé</option>
+          </select>
+
+          <select id="daySelect">
+            <option value="Lundi">Lundi</option>
+            <option value="Mardi">Mardi</option>
+            <option value="Mercredi">Mercredi</option>
+            <option value="Jeudi">Jeudi</option>
+            <option value="Vendredi">Vendredi</option>
+          </select>
+
+          <input type="time" id="timeInput" value="12:00" step="3600">
+          <button type="submit">Placer</button>
+        </form>
+      </div>
+    </header>
+
+    <!-- Zone calendrier -->
+    <main class="schedule-area">
+      <div class="schedule">
+        <div class="schedule-header">
+          <div></div>
+          <div>Lundi</div>
+          <div>Mardi</div>
+          <div>Mercredi</div>
+          <div>Jeudi</div>
+          <div>Vendredi</div>
+        </div>
+        <div id="scheduleGrid" class="schedule-grid"></div>
+      </div>
+    </main>
+  </div>
     </div>
 
     <div class="task_tracker">
@@ -35,6 +80,6 @@
         <h1>chat</h1>
     </div>
 
-    <script src="script.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
