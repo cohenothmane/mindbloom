@@ -1,11 +1,78 @@
 /*
+  général
+*/
+body {
+  background-color: #f2f6f5;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  margin: 0;
+  min-height: 100vh;   /* minimum 100% de la hauteur de l'écran */
+}
+
+
+h1 {
+  font-size: 1.6em;
+  color: #466c5c;
+}
+/*
   home
 */
+.home {
+    width: 100vw;       /* largeur de l'écran */
+    height: 100vh;      /* hauteur de l'écran */
+    padding: 20px;      /* espace intérieur */
+    box-sizing: border-box; /* pour inclure le padding dans la taille */
+    background-color: #f2f6f5; /* fond doux, gris clair */
+    display: flex;      /* flex pour gérer le contenu */
+    flex-direction: column; /* texte en colonne */
+    justify-content: center; /* centrer verticalement le contenu */
+    align-items: center;     /* centrer horizontalement le contenu */
+    text-align: center;      /* texte centré */
+    font-family: 'Nunito', sans-serif; /* police douce */
+}
+
 
 /*
   main
 */
+.container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column; /* 🌸 vertical disposition */
+  align-items: center;
+  gap: 15px;
+}
 
+select, button {
+  padding: 10px 15px;
+  border: 1px solid #bcd0c7;
+  border-radius: 8px;
+  font-size: 1em;
+  background-color: #f9fbfa;
+  cursor: pointer;
+}
+
+button {
+  background-color: #8fc7b3;
+  color: white;
+  border: none;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #7db49e;
+}
+
+#message {
+  margin-top: 20px;
+  font-size: 1.2em;
+  color: #466c5c;
+  min-height: 24px;
+}
 /*
   mood_tracker
 */
@@ -17,6 +84,7 @@
 /*
   task_tracker
 */
+
 /* ====== TO-DO LIST (Task Tracker) ====== */
 .task-tracker {
   max-width: 400px;
