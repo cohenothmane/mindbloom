@@ -7,12 +7,32 @@ body {
   color: #333;
   margin: 0;
   min-height: 100vh;   /* minimum 100% de la hauteur de l'écran */
+  overflow-x: hidden;
+
 }
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Safari */
+}
+
+.hp
+{
+  color: #e9dddd;
+  /*font-family: "Futura", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;*/
+  font-size: larger;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: "Josefin Sans", sans-serif;
+
+  letter-spacing: 3px;
+}
+
 
 
 h1 {
   font-size: 1.6em;
-  color: #466c5c;
+  color: #f5f5f5;
 }
 /*
   home
@@ -22,13 +42,16 @@ h1 {
     height: 100vh;      /* hauteur de l'écran */
     padding: 20px;      /* espace intérieur */
     box-sizing: border-box; /* pour inclure le padding dans la taille */
-    background-color: #f2f6f5; /* fond doux, gris clair */
+    background-image: url(image_icone/fond_home.jpg);
+    background-size: cover;
+    background-position: center;
     display: flex;      /* flex pour gérer le contenu */
     flex-direction: column; /* texte en colonne */
     justify-content: center; /* centrer verticalement le contenu */
     align-items: center;     /* centrer horizontalement le contenu */
     text-align: center;      /* texte centré */
     font-family: 'Nunito', sans-serif; /* police douce */
+    background-color: rgba(0, 0, 0, 0.45)
 }
 
 .hb
@@ -260,7 +283,7 @@ html, body {
 
 /* ====== TO-DO LIST (Task Tracker) ====== */
 .task-tracker {
-  max-width: 400px;
+  max-width: 700px;
   margin: 40px auto;
   padding: 20px;
   background: #ffffff;
