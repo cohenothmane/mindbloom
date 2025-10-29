@@ -60,12 +60,13 @@ showMessage.addEventListener("click", () => {
 
 
 //mood_tracker
+// === Configuration de base ===
 const scheduleGrid = document.getElementById('scheduleGrid');
 const START_HOUR = 7;
 const END_HOUR = 22;
 const days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'];
 
-// Génération du tableau d’emploi du temps
+// === Génération dynamique de l’emploi du temps ===
 for (let hour = START_HOUR; hour < END_HOUR; hour++) {
   const row = document.createElement('div');
   row.className = 'row';
@@ -86,21 +87,33 @@ for (let hour = START_HOUR; hour < END_HOUR; hour++) {
   scheduleGrid.appendChild(row);
 }
 
+// === Sélection des éléments ===
 const form = document.getElementById('entryForm');
 const chatWindow = document.getElementById('chatWindow');
 
+// === Soumission du formulaire ===
 form.addEventListener('submit', (e) => {
   e.preventDefault();
+
   const mood = document.getElementById('moodSelect').value;
   const time = document.getElementById('timeInput').value;
   const day = document.getElementById('daySelect').value;
+  const causeBefore = document.getElementById('causeBefore').value.trim();
+  const causeAfter = document.getElementById('causeAfter').value.trim();
 
   if (!time) return alert('Choisis une heure.');
 
-  const hour = parseInt(time.split(':')[0], 10);
-  if (hour < START_HOUR || hour >= END_HOUR) return alert('Heure hors plage.');
+  // On récupère l'heure ET les minutes
+const [hourStr, minuteStr] = time.split(':');
+const hour = parseInt(hourStr, 10);
+const minute = parseInt(minuteStr, 10);
 
-  const moodEmojis = {
+if (hour < START_HOUR || hour >= END_HOUR) return alert('Heure hors plage.');
+
+// Calcul d'une clé unique pour le créneau horaire (ex : "7:30")
+const timeKey = `${hourStr}:${minuteStr}`;
+
+const moodEmojis = {
     joy: '😀',
     happy: '🙂',
     neutral: '😐',
@@ -108,20 +121,35 @@ form.addEventListener('submit', (e) => {
     angry: '😡'
   };
 
-  const cell = document.querySelector(`.cell[data-day=\"${day}\"][data-hour=\"${hour}\"]`);
+  // === Ajout du mood dans le calendrier ===
+  const cell = document.querySelector(`.cell[data-day="${day}"][data-hour="${hour}"]`);
   if (cell) {
     const badge = document.createElement('div');
     badge.className = `mood-badge ${mood}`;
-    badge.textContent = `${moodEmojis[mood]} ${time}`;
+    badge.innerHTML = `
+      ${moodEmojis[mood]} ${time}<br>
+      <small>Avant : ${causeBefore || '—'}</small><br>
+      <small>Après : ${causeAfter || '—'}</small>
+    `;
     cell.appendChild(badge);
 
+    // === Ajout dans le chat ===
     const msg = document.createElement('div');
     msg.className = 'message user';
-    msg.textContent = `[${day} ${time}] ${moodEmojis[mood]}`;
+    msg.innerHTML = `
+      [${day} ${time}] ${moodEmojis[mood]}<br>
+      <small>Avant : ${causeBefore || '—'}</small><br>
+      <small>Après : ${causeAfter || '—'}</small>
+    `;
     chatWindow.appendChild(msg);
     chatWindow.scrollTop = chatWindow.scrollHeight;
   }
+
+  // === Réinitialisation des champs ===
+  document.getElementById('causeBefore').value = '';
+  document.getElementById('causeAfter').value = '';
 });
+
 
 
 //bloomGPT
