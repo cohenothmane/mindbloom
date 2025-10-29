@@ -98,10 +98,48 @@
   </div>
     </div>
 
-    <div class="task_tracker">
-        <h1>task tracker</h1>
+  <div class="task-tracker">
+  <h2>Ma To-Do List</h2>
+
+  <!-- Formulaire d’ajout -->
+  <form id="todo-form" action="#" autocomplete="off">
+    <label for="todo-input">Nouvelle tâche</label>
+    <input id="todo-input" name="task" type="text" placeholder="Ex. : Réviser I2C" required />
+    <button type="submit" id="todo-add-btn">Ajouter</button>
+
+    <select id="todo-filter" name="filter">
+      <option value="all" selected>Toutes</option>
+      <option value="active">Actives</option>
+      <option value="done">Terminées</option>
+    </select>
+  </form>
+
+  <!-- Liste des tâches -->
+  <ul id="todo-list" aria-live="polite" aria-label="Liste des tâches">
+    <!-- Les tâches seront ajoutées ici -->
+  </ul>
+
+  <!-- Modèle d’item -->
+  <template id="todo-item-template">
+    <li class="todo-item" data-id="">
+      <label class="todo-item__label">
+        <input type="checkbox" class="todo-item__check" />
+        <span class="todo-item__text"></span>
+      </label>
+      <button type="button" class="todo-item__edit" aria-label="Modifier la tâche">✎</button>
+      <button type="button" class="todo-item__delete" aria-label="Supprimer la tâche">🗑</button>
+    </li>
+  </template>
+
+  <!-- Pied de liste -->
+  <div id="todo-footer" class="todo-footer">
+    <span id="todo-count" aria-live="polite">0 tâche</span>
+    <button type="button" id="todo-clear-done">Supprimer les terminées</button>
+  </div>
+</div>
+
         
-    </div>
+        
 
     <div class="bloomGPT">
         <h1>chat</h1>

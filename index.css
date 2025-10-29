@@ -1,22 +1,40 @@
 /*
-  home
-*/
-
-/*
-  main
+  général
 */
 body {
   background-color: #f2f6f5;
   font-family: "Poppins", sans-serif;
   color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
+  min-height: 100vh;   /* minimum 100% de la hauteur de l'écran */
 }
 
+
+h1 {
+  font-size: 1.6em;
+  color: #466c5c;
+}
+/*
+  home
+*/
+.home {
+    width: 100vw;       /* largeur de l'écran */
+    height: 100vh;      /* hauteur de l'écran */
+    padding: 20px;      /* espace intérieur */
+    box-sizing: border-box; /* pour inclure le padding dans la taille */
+    background-color: #f2f6f5; /* fond doux, gris clair */
+    display: flex;      /* flex pour gérer le contenu */
+    flex-direction: column; /* texte en colonne */
+    justify-content: center; /* centrer verticalement le contenu */
+    align-items: center;     /* centrer horizontalement le contenu */
+    text-align: center;      /* texte centré */
+    font-family: 'Nunito', sans-serif; /* police douce */
+}
+
+
+/*
+  main
+*/
 .container {
   background: #ffffff;
   padding: 30px;
@@ -27,11 +45,6 @@ body {
   flex-direction: column; /* 🌸 vertical disposition */
   align-items: center;
   gap: 15px;
-}
-
-h1 {
-  font-size: 1.6em;
-  color: #466c5c;
 }
 
 select, button {
@@ -240,3 +253,163 @@ html, body {
 /*
   task_tracker
 */
+
+/* ====== TO-DO LIST (Task Tracker) ====== */
+.task-tracker {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.task-tracker h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* ====== Formulaire ====== */
+#todo-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+#todo-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+#todo-add-btn {
+  padding: 8px 12px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#todo-add-btn:hover {
+  background: #45a049;
+}
+
+#todo-filter {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+}
+
+/* ====== Liste ====== */
+#todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;        /* ✅ pour scroller si la liste est longue */
+  overflow-y: auto;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f7f7f7;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.todo-item:hover {
+  background: #eee;
+}
+
+.todo-item__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  cursor: pointer;
+}
+
+.todo-item__check {
+  transform: scale(1.2);
+}
+
+.todo-item__text {
+  font-size: 14px;
+  color: #333;
+}
+
+.todo-item__text.done {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* ====== Boutons ====== */
+.todo-item__edit,
+.todo-item__delete {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  transition: transform 0.2s;
+}
+
+.todo-item__edit:hover,
+.todo-item__delete:hover {
+  transform: scale(1.2);
+}
+
+.todo-item__edit {
+  color: #2196f3;
+}
+
+.todo-item__delete {
+  color: #e53935;
+}
+
+/* ====== Pied de page ====== */
+.todo-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+#todo-clear-done {
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#todo-clear-done:hover {
+  background: #c62828;
+}
+
+/* ====== Scroll ====== */
+#todo-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+#todo-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+#todo-list::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
