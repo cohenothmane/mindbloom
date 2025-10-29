@@ -256,7 +256,7 @@ html, body {
 
 /* ====== TO-DO LIST (Task Tracker) ====== */
 .task-tracker {
-  max-width: 400px;
+  max-width: 700px;
   margin: 40px auto;
   padding: 20px;
   background: #ffffff;
