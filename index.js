@@ -95,7 +95,7 @@ const chatWindow = document.getElementById('chatWindow');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const mood = document.getElementById('moodSelect').value;
+  const mood = document.getElementById('moodSelec').value;
   const time = document.getElementById('timeInput').value;
   const day = document.getElementById('daySelect').value;
   const causeBefore = document.getElementById('causeBefore').value.trim();
@@ -106,19 +106,17 @@ form.addEventListener('submit', (e) => {
   // On récupère l'heure ET les minutes
 const [hourStr, minuteStr] = time.split(':');
 const hour = parseInt(hourStr, 10);
-const minute = parseInt(minuteStr, 10);
 
 if (hour < START_HOUR || hour >= END_HOUR) return alert('Heure hors plage.');
 
 // Calcul d'une clé unique pour le créneau horaire (ex : "7:30")
-const timeKey = `${hourStr}:${minuteStr}`;
 
 const moodEmojis = {
     joy: '😀',
-    happy: '🙂',
-    neutral: '😐',
-    sad: '😞',
-    angry: '😡'
+  happy: '🙂',
+  neutral: '😐',
+  sad: '😞',
+  angry: '😡'
   };
 
   // === Ajout du mood dans le calendrier ===
