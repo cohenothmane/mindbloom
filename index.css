@@ -123,6 +123,7 @@ html, body {
 #moodScheduler {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100vh;
 }
@@ -218,7 +219,6 @@ html, body {
   overflow: auto;
   padding: 16px;
   background: var(--bg);
-  margin-left: 250px;
 }
 
 .schedule {
