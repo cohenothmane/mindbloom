@@ -95,7 +95,7 @@ const chatWindow = document.getElementById('chatWindow');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const mood = document.getElementById('moodSelec').value;
+  const mood = document.getElementById('moodSelectt').value;
   const time = document.getElementById('timeInput').value;
   const day = document.getElementById('daySelect').value;
   const causeBefore = document.getElementById('causeBefore').value.trim();
