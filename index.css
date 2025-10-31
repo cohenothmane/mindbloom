@@ -15,6 +15,26 @@ body::-webkit-scrollbar {
   display: none; /* Chrome, Edge, Safari */
 }
 
+a.link {
+  color: inherit;               /* garde la couleur du texte normal */
+  text-decoration: none;        /* enlève le soulignement */
+  cursor: pointer;
+}
+
+a.link:visited {
+  color: inherit;               /* évite le violet après clic */
+}
+
+a.link:hover {
+  color: inherit;               /* garde la même couleur au survol */
+  opacity: 0.8;                 /* petit effet visuel subtil au survol (optionnel) */
+}
+
+a.link:active {
+  color: inherit;               /* évite tout changement pendant le clic */
+}
+
+
 .hp
 {
   color: #f5f5f5;
