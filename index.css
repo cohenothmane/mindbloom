@@ -15,9 +15,32 @@ body::-webkit-scrollbar {
   display: none; /* Chrome, Edge, Safari */
 }
 
+a.link {
+  color: inherit;               /* garde la couleur du texte normal */
+  text-decoration: none;        /* enlève le soulignement */
+  cursor: pointer;
+}
+
+a.link:visited {
+  color: inherit;               /* évite le violet après clic */
+}
+
+a.link:hover {
+  color: inherit;               /* garde la même couleur au survol */
+  opacity: 0.8;                 /* petit effet visuel subtil au survol (optionnel) */
+}
+
+a.link:active {
+  color: inherit;               /* évite tout changement pendant le clic */
+}
+
+
 .hp
 {
-  color: #e9dddd;
+  color: #f5f5f5;
+  text-shadow:
+    0 0 6px rgb(0, 0, 0),   /* lassombrie le fond*/
+    0 6px 18px rgb(255, 255, 255);
   /*font-family: "Futura", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;*/
   font-size: larger;
@@ -33,6 +56,9 @@ body::-webkit-scrollbar {
 h1 {
   font-size: 1.6em;
   color: #f5f5f5;
+  text-shadow:
+    0 0 6px rgb(0, 0, 0),   /* lassombrie le fond*/
+    0 6px 18px rgb(255, 255, 255);
 }
 /*
   home
@@ -42,7 +68,7 @@ h1 {
     height: 100vh;      /* hauteur de l'écran */
     padding: 20px;      /* espace intérieur */
     box-sizing: border-box; /* pour inclure le padding dans la taille */
-    background-image: url(image_icone/fond_home.jpg);
+    background-image: url(image_icone/fond22.jpg);
     background-size: cover;
     background-position: center;
     display: flex;      /* flex pour gérer le contenu */
