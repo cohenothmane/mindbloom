@@ -242,7 +242,7 @@ moodEntries.forEach(addMoodEntry);
     persist();
     render();
   });
-
+    
   el.list?.addEventListener("click", (e) => {
     const target = e.target;
     if (target.closest(".todo-item__delete")) {
@@ -260,15 +260,29 @@ moodEntries.forEach(addMoodEntry);
       const id = li.dataset.id;
       const t = tasks.find((x) => x.id === id);
       if (!t) return;
-      const newText = prompt("Modifier la tâche :", t.text);
-      if (newText === null) return;
-      const text = newText.trim();
-      if (text) {
-        t.text = text;
-        persist();
-        render();
-      }
+
+      // Inline editing instead of prompt()
+      const textSpan = li.querySelector(".todo-item__text");
+      const input = document.createElement("input");
+      input.type = "text";
+      input.value = t.text;
+      input.className = "todo-edit-input";
+      textSpan.replaceWith(input);
+      input.focus();
+
+      input.addEventListener("blur", () => {
+        const newText = input.value.trim();
+        if (newText) {
+          t.text = newText;
+          persist();
         }
+        render();
+      });
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") input.blur();
+      });
+    }
   });
 
   el.list?.addEventListener("change", (e) => {
