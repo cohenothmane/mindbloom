@@ -53,13 +53,52 @@ a.link {
 }
 a.link:hover, a.link:focus { opacity: 0.85; }
 
-/* Scrollbars for lists/schedules */
+/* Scrollbars */
 #todo-list::-webkit-scrollbar,
 .schedule-area::-webkit-scrollbar { width: 8px; }
 #todo-list::-webkit-scrollbar-thumb,
 .schedule-area::-webkit-scrollbar-thumb {
   background: #cfd8dc;
   border-radius: 4px;
+}
+
+/* =========================
+   Section spacing & dividers
+   ========================= */
+section, main, header {
+  padding: 80px 20px;
+  margin-bottom: 80px;
+}
+
+.section-divider {
+  height: 2px;
+  background: linear-gradient(to right, transparent, #ccc, transparent);
+  margin: 60px auto;
+  max-width: 80%;
+  border-radius: 2px;
+}
+
+/* Alternate backgrounds */
+#section-mood { background: #f9fbfa; }
+#section-tracker { background: #eef6ff; }
+#section-todo { background: #fffdf7; }
+
+/* Section headings */
+section h2, main h1 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 40px;
+  color: #334155;
+  position: relative;
+}
+section h2::after, main h1::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  margin: 12px auto 0;
+  border-radius: 999px;
 }
 
 /* =========================
@@ -134,15 +173,27 @@ h1 {
    ========================= */
 .container {
   background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
 }
+
+#mood-title {
+  font-size: 2rem;
+  color: #2f3b45;
+}
+
+#mood-intro {
+  font-size: 1.1rem;
+  color: #556b2f;
+  margin-bottom: 10px;
+}
+
 select, button {
   padding: 10px 15px;
   border: 1px solid #bcd0c7;
@@ -151,19 +202,30 @@ select, button {
   background-color: #f9fbfa;
   cursor: pointer;
 }
-button {
-  background-color: #8fc7b3;
-  color: white;
+
+#showMessage {
+  background: linear-gradient(135deg, #8fc7b3, #7db49e);
+  font-size: 1.1rem;
+  padding: 12px 20px;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  color: #fff;
   border: none;
-  transition: 0.3s;
 }
-button:hover { background-color: #7db49e; }
+#showMessage:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
 #message {
-  margin-top: 20px;
-  font-size: 1.2em;
-  color: #466c5c;
-  min-height: 24px;
+  margin-top: 25px;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #334155;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
+#message.show { opacity: 1; }
 
 /* =========================
    Mood tracker
@@ -277,13 +339,10 @@ button:hover { background-color: #7db49e; }
   font-weight: 600;
   margin: 4px 4px 0 0;
   box-shadow: 0 6px 14px rgba(20, 30, 60, 0.06);
-
-  /* For minute positioning within the hour cell */
   position: absolute;
   left: 6px;
   transform: translateY(-50%);
 }
-
 .mood-badge .badge-del {
   margin-left: 8px;
   border: none;
@@ -292,7 +351,6 @@ button:hover { background-color: #7db49e; }
   font-weight: 700;
   color: #374151;
 }
-
 .mood-badge.joy     { background: linear-gradient(90deg,#fff2cc,#ffe49a); }
 .mood-badge.happy   { background: linear-gradient(90deg,#e6ffef,#bff6d4); }
 .mood-badge.neutral { background: linear-gradient(90deg,#f3f4f6,#e9eef6); }
@@ -467,6 +525,15 @@ button:hover { background-color: #7db49e; }
 }
 
 /* Buttons */
+.todo-item__edit,
+.todo-item__delete {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  transition: color .3s ease;
+}
 .todo-item__edit,
 .todo-item__delete {
   background: transparent;

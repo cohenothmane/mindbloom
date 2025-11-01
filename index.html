@@ -18,65 +18,72 @@
       <div class="home-content">
         <div class="home-text">
           <h1><span class="hb">Bienvenue sur</span><br><span>Mindbloom</span></h1>
-<p class="hp">
-  Mindbloom est un espace pensé pour prendre soin de ton bien-être au quotidien.
-  Ici, tu trouveras des phrases positives pour t’encourager, des outils pour suivre ton humeur,
-  et des moyens simples d’organiser tes journées.
-</p>
 
-<p class="hp">
-  <a href="#section-mood" class="link">
-    Découvre des messages motivants adaptés à ton état d’esprit du moment 
-  </a>
-</p>
+          <p class="hp">
+            Mindbloom est un espace pensé pour prendre soin de ton bien‑être au quotidien.
+            Ici, tu trouveras des phrases positives pour t’encourager, des outils pour suivre ton humeur,
+            et des moyens simples d’organiser tes journées.
+          </p>
 
-<p class="hp">
-  <a href="#section-tracker" class="link">
-    Suis l’évolution de ton humeur grâce à un calendrier interactif 
-  </a>
-</p>
+          <p class="hp">
+            <a href="#section-mood" class="link">
+              Découvre des messages motivants adaptés à ton état d’esprit du moment
+            </a>
+          </p>
 
-<p class="hp">
-  <a href="#section-todo" class="link">
-    Garde le cap avec une to-do list claire et personnalisée 
-  </a>
-</p>
+          <p class="hp">
+            <a href="#section-tracker" class="link">
+              Suis l’évolution de ton humeur grâce à un calendrier interactif
+            </a>
+          </p>
 
-<div class="chat-intro">
-  <p class="hp chat-text">
-    Et parce qu’il est parfois plus facile de parler, Mindbloom intègre aussi un chat interactif
-    avec une intelligence artificielle bienveillante. Tu peux y partager tes pensées,
-    poser des questions ou simplement discuter librement.
-  </p>
-  <button type="button" id="enable-chat" class="enable-chat" aria-label="Activer le chat">
-    Activer le chat
-  </button>
-</div>
+          <p class="hp">
+            <a href="#section-todo" class="link">
+              Garde le cap avec une to‑do list claire et personnalisée
+            </a>
+          </p>
+
+          <div class="chat-intro">
+            <p class="hp chat-text">
+              Et parce qu’il est parfois plus facile de parler, Mindbloom intègre aussi un chat interactif
+              avec une intelligence artificielle bienveillante. Tu peux y partager tes pensées,
+              poser des questions ou simplement discuter librement.
+            </p>
+            <button type="button" id="enable-chat" class="enable-chat" aria-label="Activer le chat">
+              Activer le chat
+            </button>
           </div>
         </div>
       </div>
     </header>
 
+    <!-- Divider -->
+    <div class="section-divider" aria-hidden="true"></div>
+
     <!-- Mood picker -->
     <main class="card" role="main" id="section-mood" aria-labelledby="mood-title">
       <div class="container">
         <h1 id="mood-title">Choisis ton mood 🌿</h1>
+        <p id="mood-intro">Sélectionne ton état d’esprit et découvre une phrase réconfortante.</p>
 
         <label for="moodSelect" class="visually-hidden">Sélectionne ton mood</label>
         <select id="moodSelect" aria-label="Sélection du mood">
           <option value="">-- Sélectionne ton mood --</option>
-          <option value="joyeux">Joyeux(se) 😊</option>
-          <option value="fatigue">Fatigué(e) 😴</option>
-          <option value="colere">En colère 😠</option>
-          <option value="enerve">Énervé(e) 😤</option>
-          <option value="calme">Calme 🧘‍♀️</option>
-          <option value="triste">Triste 😢</option>
+          <option value="joyeux">😊 Joyeux(se)</option>
+          <option value="fatigue">😴 Fatigué(e)</option>
+          <option value="colere">😠 En colère</option>
+          <option value="enerve">😤 Énervé(e)</option>
+          <option value="calme">🧘‍♀️ Calme</option>
+          <option value="triste">😢 Triste</option>
         </select>
 
-        <button id="showMessage" type="button">Afficher ma phrase</button>
+        <button id="showMessage" type="button">✨ Inspire-moi</button>
         <p id="message" role="status" aria-live="polite"></p>
       </div>
     </main>
+
+    <!-- Divider -->
+    <div class="section-divider" aria-hidden="true"></div>
 
     <!-- Mood scheduler -->
     <section class="mood-tracker" id="section-tracker" aria-labelledby="tracker-title">
@@ -137,6 +144,9 @@
         </div>
       </div>
     </section>
+
+    <!-- Divider -->
+    <div class="section-divider" aria-hidden="true"></div>
 
     <!-- Task tracker -->
     <section class="task-tracker" id="section-todo" aria-labelledby="todo-title">
@@ -203,8 +213,9 @@
           script.domain="www.chatbase.co";
           document.body.appendChild(script);
         })();
-        document.getElementById('enable-chat').setAttribute('disabled','true');
-        document.getElementById('enable-chat').textContent = 'Chat activé';
+        const btn = document.getElementById('enable-chat');
+        btn.setAttribute('disabled','true');
+        btn.textContent = 'Chat activé';
       });
     </script>
   </body>

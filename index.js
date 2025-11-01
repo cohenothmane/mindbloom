@@ -48,8 +48,10 @@ showMessage?.addEventListener("click", () => {
     const phrases = moodMessages[selectedMood];
     const randomIndex = Math.floor(Math.random() * phrases.length);
     message.textContent = phrases[randomIndex];
+    message.classList.add("show");
   } else {
     message.textContent = "Choisis d'abord ton mood 🌿";
+    message.classList.add("show");
   }
 });
 
@@ -237,7 +239,7 @@ document.addEventListener('click', (e) => {
         persist();
         render();
       }
-    }
+        }
   });
 
   el.list?.addEventListener("change", (e) => {
