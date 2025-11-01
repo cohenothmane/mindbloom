@@ -616,26 +616,58 @@ select, button {
 /* =========================
    Responsive adjustments
    ========================= */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
+  /* Unified small-screen adjustments */
   section, main, header {
     padding: 40px 12px;
     margin-bottom: 40px;
   }
+
   .task-tracker {
-    margin: 30px auto;
+    margin: 30px 18px;
     padding: 20px;
+    max-width: calc(100% - 36px);
   }
-  #todo-input {
-    font-size: 14px;
-  }
+
+  /* Inputs & forms */
+  #todo-input { font-size: 14px; }
   .entry-form {
     grid-template-columns: 1fr;
+    gap: 8px;
   }
-  .schedule-header, .row {
+  .entry-form select,
+  .entry-form input[type="time"],
+  .entry-form input[type="text"] {
+    min-width: 0; /* prevent overflow inside flexible containers */
+  }
+
+  /* Schedule layout */
+  .schedule-header,
+  .row {
     grid-template-columns: 50px repeat(5, minmax(100px, 1fr));
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  .hp {
-    letter-spacing: 0.5px;
+
+  /* Home / hero adjustments */
+  .home {
+    padding: 30px 12px;
+    align-items: flex-start;
+  }
+  .home-content,
+  .container,
+  .chat-container,
+  .schedule-area {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Minor typographic tweaks */
+  .hp { letter-spacing: 0.5px; }
+
+  /* Compact badges */
+  .mood-badge {
+    left: 6px;
+    transform: translateY(-50%);
   }
 }
