@@ -272,6 +272,7 @@ select, button {
   box-shadow: var(--shadow-1);
 }
 .entry-form label { font-size: 12px; color: #334155; }
+
 .entry-form select,
 .entry-form input[type="time"],
 .entry-form input[type="text"] {
@@ -315,6 +316,10 @@ select, button {
   color: #334155;
   border-bottom: 1px solid #eee;
   padding-bottom: 6px;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 5;
 }
 .schedule-grid { margin-top: 10px; }
 .row {
@@ -324,13 +329,16 @@ select, button {
   align-items: start;
   padding: 8px 6px;
 }
-.time-label { font-size: 13px; color: var(--muted); }
+.row:nth-child(even) { background: #fafafa; }
+.time-label { font-size: 13px; color: var(--muted); font-weight: 600; }
 .cell {
   min-height: 64px;
   padding: 6px;
   border-left: 1px dashed #f3f6fb;
   position: relative;
+  transition: background 0.2s ease;
 }
+.cell:hover { background: #f0f7ff; }
 
 .mood-badge {
   display: inline-block;
@@ -339,9 +347,15 @@ select, button {
   font-weight: 600;
   margin: 4px 4px 0 0;
   box-shadow: 0 6px 14px rgba(20, 30, 60, 0.06);
+  border: 1px solid rgba(0,0,0,0.05);
   position: absolute;
   left: 6px;
   transform: translateY(-50%);
+  transition: transform 0.2s ease;
+}
+.mood-badge:hover {
+  transform: translateY(-50%) scale(1.05);
+  z-index: 2;
 }
 .mood-badge .badge-del {
   margin-left: 8px;
@@ -534,15 +548,6 @@ select, button {
   padding: 4px;
   transition: color .3s ease;
 }
-.todo-item__edit,
-.todo-item__delete {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 4px;
-  transition: color .3s ease;
-}
 .todo-item__edit { color: #7a8a72; }
 .todo-item__delete { color: #b56b5b; }
 .todo-item__edit:hover { color: #556b2f; }
@@ -574,3 +579,23 @@ select, button {
   transition: background .3s;
 }
 #todo-clear-done:hover { background: #9c3e2d; }
+
+.mood-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+#clear-moods {
+  background: #b56b5b;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .3s;
+}
+#clear-moods:hover {
+  background: #9c3e2d;
+}

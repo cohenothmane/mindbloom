@@ -55,11 +55,14 @@ showMessage?.addEventListener("click", () => {
   }
 });
 
-// ========== Mood scheduler ==========
+// ========== Mood scheduler with localStorage ==========
 const scheduleGrid = document.getElementById('scheduleGrid');
 const START_HOUR = 7;
 const END_HOUR = 22;
 const days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'];
+
+const LS_KEY_MOODS = "mood.entries.v1";
+let moodEntries = loadMoods();
 
 // Build grid
 if (scheduleGrid) {
@@ -110,6 +113,20 @@ form?.addEventListener('submit', (e) => {
     return;
   }
 
+  const entry = { mood, time, day, causeBefore, causeAfter };
+  addMoodEntry(entry);
+  moodEntries.push(entry);
+  saveMoods();
+  form.reset();
+});
+
+// Helpers
+function addMoodEntry(entry) {
+  const { mood, time, day, causeBefore, causeAfter } = entry;
+  const [hourStr, minuteStr] = time.split(':');
+  const hour = parseInt(hourStr, 10);
+  const minutes = parseInt(minuteStr || '0', 10);
+
   const moodEmojis = {
     joy: '😀',
     happy: '🙂',
@@ -121,25 +138,16 @@ form?.addEventListener('submit', (e) => {
   const cell = document.querySelector(`.cell[data-day="${day}"][data-hour="${hour}"]`);
   if (!cell) return;
 
-  // Prevent duplicates in same cell/time
-  const exists = [...cell.querySelectorAll('.mood-badge')]
-    .some(b => b.dataset.time === time && b.dataset.mood === mood);
-  if (exists) {
-    alert('Un mood existe déjà pour ce créneau.');
-    return;
-  }
-
   const badge = document.createElement('div');
   badge.className = `mood-badge ${mood}`;
   badge.dataset.time = time;
   badge.dataset.mood = mood;
 
-  // Position within hour cell by minutes (top from 0% to 100%)
   const topPercent = (minutes / 60) * 100;
   badge.style.top = `${Math.max(10, Math.min(90, topPercent))}%`;
 
   badge.innerHTML = `
-    ${moodEmojis[mood]} ${time}
+    ${moodEmojis[mood] || ''} ${time}
     <button class="badge-del" title="Supprimer" aria-label="Supprimer ce mood">×</button><br>
     <small>Avant : ${causeBefore || '—'}</small><br>
     <small>Après : ${causeAfter || '—'}</small>
@@ -150,25 +158,46 @@ form?.addEventListener('submit', (e) => {
   const msg = document.createElement('div');
   msg.className = 'message user';
   msg.innerHTML = `
-    [${day} ${time}] ${moodEmojis[mood]}<br>
+    [${day} ${time}] ${moodEmojis[mood] || ''}<br>
     <small>Avant : ${causeBefore || '—'}</small><br>
     <small>Après : ${causeAfter || '—'}</small>
   `;
   chatWindow?.appendChild(msg);
   if (chatWindow) chatWindow.scrollTop = chatWindow.scrollHeight;
+}
 
-  // Reset fields (keep selections)
-  document.getElementById('causeBefore').value = '';
-  document.getElementById('causeAfter').value = '';
-});
-
-// Delete badge via delegation
+// Delete badge
 document.addEventListener('click', (e) => {
   const btn = e.target.closest('.badge-del');
   if (!btn) return;
   const badge = btn.closest('.mood-badge');
-  badge?.remove();
+  if (!badge) return;
+
+  const { mood, time } = badge.dataset;
+  const day = badge.closest('.cell')?.dataset.day;
+  badge.remove();
+
+  moodEntries = moodEntries.filter(
+    (entry) => !(entry.mood === mood && entry.time === time && entry.day === day)
+  );
+  saveMoods();
 });
+
+// Persistence
+function saveMoods() {
+  localStorage.setItem(LS_KEY_MOODS, JSON.stringify(moodEntries));
+}
+function loadMoods() {
+  try {
+    const raw = localStorage.getItem(LS_KEY_MOODS);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+// Render saved entries
+moodEntries.forEach(addMoodEntry);
 
 // ========== To-Do list with localStorage ==========
 (function () {
@@ -333,3 +362,21 @@ document.addEventListener('click', (e) => {
     el.count.textContent = `${remaining} tâche${remaining > 1 ? "s" : ""}`;
   }
 })();
+
+// Clear all moods button
+const clearMoodsBtn = document.getElementById('clear-moods');
+clearMoodsBtn?.addEventListener('click', () => {
+  if (!confirm("Voulez-vous vraiment effacer tous les moods ?")) return;
+
+  // Remove all badges
+  document.querySelectorAll('.mood-badge').forEach(b => b.remove());
+
+  // Clear chat window (keep system message)
+  if (chatWindow) {
+    chatWindow.innerHTML = '<div class="message system">Bienvenue — entrez votre mood et l\'heure pour l’ajouter à l’emploi du temps.</div>';
+  }
+
+  // Clear localStorage
+  localStorage.removeItem("mood.entries.v1");
+  moodEntries = [];
+});
