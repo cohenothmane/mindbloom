@@ -1,8 +1,4 @@
-//home
-
-
-
-//main
+// ========== Mood picker ==========
 const moodSelect = document.getElementById("moodSelect");
 const showMessage = document.getElementById("showMessage");
 const message = document.getElementById("message");
@@ -46,9 +42,8 @@ const moodMessages = {
   ]
 };
 
-showMessage.addEventListener("click", () => {
-  const selectedMood = moodSelect.value;
-
+showMessage?.addEventListener("click", () => {
+  const selectedMood = moodSelect?.value;
   if (selectedMood && moodMessages[selectedMood]) {
     const phrases = moodMessages[selectedMood];
     const randomIndex = Math.floor(Math.random() * phrases.length);
@@ -58,41 +53,39 @@ showMessage.addEventListener("click", () => {
   }
 });
 
-
-//mood_tracker
-// === Configuration de base ===
+// ========== Mood scheduler ==========
 const scheduleGrid = document.getElementById('scheduleGrid');
 const START_HOUR = 7;
 const END_HOUR = 22;
 const days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'];
 
-// === Génération dynamique de l’emploi du temps ===
-for (let hour = START_HOUR; hour < END_HOUR; hour++) {
-  const row = document.createElement('div');
-  row.className = 'row';
+// Build grid
+if (scheduleGrid) {
+  for (let hour = START_HOUR; hour < END_HOUR; hour++) {
+    const row = document.createElement('div');
+    row.className = 'row';
 
-  const timeLabel = document.createElement('div');
-  timeLabel.className = 'time-label';
-  timeLabel.textContent = `${hour.toString().padStart(2, '0')}:00`;
-  row.appendChild(timeLabel);
+    const timeLabel = document.createElement('div');
+    timeLabel.className = 'time-label';
+    timeLabel.textContent = `${hour.toString().padStart(2, '0')}:00`;
+    row.appendChild(timeLabel);
 
-  days.forEach(day => {
-    const cell = document.createElement('div');
-    cell.className = 'cell';
-    cell.dataset.day = day;
-    cell.dataset.hour = hour;
-    row.appendChild(cell);
-  });
+    days.forEach(day => {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.dataset.day = day;
+      cell.dataset.hour = String(hour);
+      row.appendChild(cell);
+    });
 
-  scheduleGrid.appendChild(row);
+    scheduleGrid.appendChild(row);
+  }
 }
 
-// === Sélection des éléments ===
 const form = document.getElementById('entryForm');
 const chatWindow = document.getElementById('chatWindow');
 
-// === Soumission du formulaire ===
-form.addEventListener('submit', (e) => {
+form?.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const mood = document.getElementById('moodSelectt').value;
@@ -101,64 +94,81 @@ form.addEventListener('submit', (e) => {
   const causeBefore = document.getElementById('causeBefore').value.trim();
   const causeAfter = document.getElementById('causeAfter').value.trim();
 
-  if (!time) return alert('Choisis une heure.');
-
-  // On récupère l'heure ET les minutes
-const [hourStr, minuteStr] = time.split(':');
-const hour = parseInt(hourStr, 10);
-
-if (hour < START_HOUR || hour >= END_HOUR) return alert('Heure hors plage.');
-
-// Calcul d'une clé unique pour le créneau horaire (ex : "7:30")
-
-const moodEmojis = {
-    joy: '😀',
-  happy: '🙂',
-  neutral: '😐',
-  sad: '😞',
-  angry: '😡'
-  };
-
-  // === Ajout du mood dans le calendrier ===
-  const cell = document.querySelector(`.cell[data-day="${day}"][data-hour="${hour}"]`);
-  if (cell) {
-    const badge = document.createElement('div');
-    badge.className = `mood-badge ${mood}`;
-    badge.innerHTML = `
-      ${moodEmojis[mood]} ${time}<br>
-      <small>Avant : ${causeBefore || '—'}</small><br>
-      <small>Après : ${causeAfter || '—'}</small>
-    `;
-    cell.appendChild(badge);
-
-    // === Ajout dans le chat ===
-    const msg = document.createElement('div');
-    msg.className = 'message user';
-    msg.innerHTML = `
-      [${day} ${time}] ${moodEmojis[mood]}<br>
-      <small>Avant : ${causeBefore || '—'}</small><br>
-      <small>Après : ${causeAfter || '—'}</small>
-    `;
-    chatWindow.appendChild(msg);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
+  if (!time) {
+    alert('Choisis une heure.');
+    return;
   }
 
-  // === Réinitialisation des champs ===
+  const [hourStr, minuteStr] = time.split(':');
+  const hour = parseInt(hourStr, 10);
+  const minutes = parseInt(minuteStr || '0', 10);
+
+  if (Number.isNaN(hour) || hour < START_HOUR || hour >= END_HOUR) {
+    alert('Heure hors plage.');
+    return;
+  }
+
+  const moodEmojis = {
+    joy: '😀',
+    happy: '🙂',
+    neutral: '😐',
+    sad: '😞',
+    angry: '😡'
+  };
+
+  const cell = document.querySelector(`.cell[data-day="${day}"][data-hour="${hour}"]`);
+  if (!cell) return;
+
+  // Prevent duplicates in same cell/time
+  const exists = [...cell.querySelectorAll('.mood-badge')]
+    .some(b => b.dataset.time === time && b.dataset.mood === mood);
+  if (exists) {
+    alert('Un mood existe déjà pour ce créneau.');
+    return;
+  }
+
+  const badge = document.createElement('div');
+  badge.className = `mood-badge ${mood}`;
+  badge.dataset.time = time;
+  badge.dataset.mood = mood;
+
+  // Position within hour cell by minutes (top from 0% to 100%)
+  const topPercent = (minutes / 60) * 100;
+  badge.style.top = `${Math.max(10, Math.min(90, topPercent))}%`;
+
+  badge.innerHTML = `
+    ${moodEmojis[mood]} ${time}
+    <button class="badge-del" title="Supprimer" aria-label="Supprimer ce mood">×</button><br>
+    <small>Avant : ${causeBefore || '—'}</small><br>
+    <small>Après : ${causeAfter || '—'}</small>
+  `;
+  cell.appendChild(badge);
+
+  // Add to chat
+  const msg = document.createElement('div');
+  msg.className = 'message user';
+  msg.innerHTML = `
+    [${day} ${time}] ${moodEmojis[mood]}<br>
+    <small>Avant : ${causeBefore || '—'}</small><br>
+    <small>Après : ${causeAfter || '—'}</small>
+  `;
+  chatWindow?.appendChild(msg);
+  if (chatWindow) chatWindow.scrollTop = chatWindow.scrollHeight;
+
+  // Reset fields (keep selections)
   document.getElementById('causeBefore').value = '';
   document.getElementById('causeAfter').value = '';
 });
 
+// Delete badge via delegation
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.badge-del');
+  if (!btn) return;
+  const badge = btn.closest('.mood-badge');
+  badge?.remove();
+});
 
-
-//bloomGPT
-
-
-
-//task_tracker
-/* ===========================
-   To-Do List – Vanilla JS + localStorage
-   =========================== */
-
+// ========== To-Do list with localStorage ==========
 (function () {
   const el = {
     form: document.getElementById("todo-form"),
@@ -176,82 +186,74 @@ const moodEmojis = {
 
   render();
 
-  if (el.form) {
-    el.form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const text = (el.input?.value || "").trim();
-      if (!text) return;
-      tasks.unshift({
-        id: String(Date.now()),
-        text,
-        done: false,
-        createdAt: Date.now()
-      });
-      el.input.value = "";
+  el.form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = (el.input?.value || "").trim();
+    if (!text) return;
+    tasks.unshift({
+      id: String(Date.now()),
+      text,
+      done: false,
+      createdAt: Date.now()
+    });
+    el.input.value = "";
+    persist();
+    render();
+  });
+
+  el.filter?.addEventListener("change", () => {
+    currentFilter = el.filter.value;
+    render();
+  });
+
+  el.clearDone?.addEventListener("click", () => {
+    tasks = tasks.filter((t) => !t.done);
+    persist();
+    render();
+  });
+
+  el.list?.addEventListener("click", (e) => {
+    const target = e.target;
+    if (target.closest(".todo-item__delete")) {
+      const li = target.closest(".todo-item");
+      if (!li) return;
+      const id = li.dataset.id;
+      tasks = tasks.filter((t) => t.id !== id);
       persist();
       render();
-    });
-  }
-
-  if (el.filter) {
-    el.filter.addEventListener("change", () => {
-      currentFilter = el.filter.value;
-      render();
-    });
-  }
-
-  if (el.clearDone) {
-    el.clearDone.addEventListener("click", () => {
-      tasks = tasks.filter((t) => !t.done);
-      persist();
-      render();
-    });
-  }
-
-  if (el.list) {
-    el.list.addEventListener("click", (e) => {
-      const target = e.target;
-      if (target.closest(".todo-item__delete")) {
-        const li = target.closest(".todo-item");
-        if (!li) return;
-        const id = li.dataset.id;
-        tasks = tasks.filter((t) => t.id !== id);
+      return;
+    }
+    if (target.closest(".todo-item__edit")) {
+      const li = target.closest(".todo-item");
+      if (!li) return;
+      const id = li.dataset.id;
+      const t = tasks.find((x) => x.id === id);
+      if (!t) return;
+      const newText = prompt("Modifier la tâche :", t.text);
+      if (newText === null) return;
+      const text = newText.trim();
+      if (text) {
+        t.text = text;
         persist();
         render();
-        return;
       }
-      if (target.closest(".todo-item__edit")) {
-        const li = target.closest(".todo-item");
-        if (!li) return;
-        const id = li.dataset.id;
-        const t = tasks.find((x) => x.id === id);
-        if (!t) return;
-        const newText = prompt("Modifier la tâche :", t.text);
-        if (newText === null) return;
-        const text = newText.trim();
-        if (text) {
-          t.text = text;
-          persist();
-          render();
-        }
-      }
-    });
+    }
+  });
 
-    el.list.addEventListener("change", (e) => {
-      const target = e.target;
-      if (target.classList.contains("todo-item__check")) {
-        const li = target.closest(".todo-item");
-        if (!li) return;
-        const id = li.dataset.id;
-        const t = tasks.find((x) => x.id === id);
-        if (!t) return;
-        t.done = target.checked;
-        persist();
-        updateItemVisual(li, t);
-        updateCount();
-      }
-    });
-  }
+  el.list?.addEventListener("change", (e) => {
+    const target = e.target;
+    if (target.classList.contains("todo-item__check")) {
+      const li = target.closest(".todo-item");
+      if (!li) return;
+      const id = li.dataset.id;
+      const t = tasks.find((x) => x.id === id);
+      if (!t) return;
+      t.done = target.checked;
+      persist();
+      updateItemVisual(li, t);
+      updateCount();
+    }
+  });
 
   function load() {
     try {

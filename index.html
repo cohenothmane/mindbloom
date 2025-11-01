@@ -1,150 +1,203 @@
+<!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>mindbloom</title>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300&display=swap" rel="stylesheet">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Nunito:wght@300;600&display=swap"
-      rel="stylesheet"
-    />
+    <title>Mindbloom</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Nunito:wght@300;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="index.css" />
   </head>
 
   <body>
-    <div class="home">
-      <h1><span class="hb">Welcome to</span><br><span>Mindbloom</span></h1>
-      <p class="hp">
-  <a href="#section-mood" class="link">Mindbloom est un site web créé pour encourager et remonter le moral des utilisateurs.
-  En un clic, le site affiche une phrase positive ou motivante afin d’apporter un peu
-  de soutien au quotidien.</a>
-</p>
+    <!-- Hero / Home -->
+    <header class="home" role="banner">
+      <div class="home-content">
+        <div class="home-text">
+          <h1><span class="hb">Welcome to</span><br><span>Mindbloom</span></h1>
 
-<p class="hp">
-  <a href="#section-tracker" class="link">Il peut vous aidez à vous suivre au quotidien</a>
-</p>
+          <p class="hp">
+            <a href="#section-mood" class="link">
+              Mindbloom est un site web créé pour encourager et remonter le moral des utilisateurs.
+              En un clic, le site affiche une phrase positive ou motivante afin d’apporter un peu
+              de soutien au quotidien.
+            </a>
+          </p>
 
-<p class="hp">
-  <a href="#section-todo" class="link">Tout comme vous organiser au quotidien</a>
-</p>
+          <p class="hp">
+            <a href="#section-tracker" class="link">Il peut vous aider à vous suivre au quotidien</a>
+          </p>
 
-<p class="hp"> Le site comprend également un chat interactif avec une intelligence artificielle permettant de discuter librement, partager ses pensées et recevoir des messages bienveillants. </p>
-    </div>
+          <p class="hp">
+            <a href="#section-todo" class="link">Tout comme vous organiser au quotidien</a>
+          </p>
 
-    <main class="card" role="main" id="section-mood">
-  <div class="container">
-    <h1>Choisis ton mood 🌿</h1>
-    
-    <select id="moodSelect">
-      <option value="">-- Sélectionne ton mood --</option>
-      <option value="joyeux">Joyeux(se) 😊</option>
-      <option value="fatigue">Fatigué(e) 😴</option>
-      <option value="colere">En colère 😠</option>
-      <option value="enerve">Énervé(e) 😤</option>
-      <option value="calme">Calme 🧘‍♀️</option>
-      <option value="triste">Triste 😢</option>
-    </select>
-    
-    <button id="showMessage">Afficher ma phrase</button>
-    <p id="message"></p>
-  </div>
-    </main>
-
-    <div class="mood_tracker" id="section-tracker">
-        <div id="moodScheduler" class="moodScheduler1">
-    <!-- Partie Rayan -->
-    <header class="top-chat">
-      <div class="chat-container">
-        <div id="chatWindow" class="chat-window">
-          <div class="message system">Bienvenue — entrez votre mood et l'heure pour l’ajouter à l’emploi du temps.</div>
+          <!-- Chat intro with button -->
+          <div class="chat-intro">
+            <p class="hp chat-text">
+              Le site comprend également un chat interactif avec une intelligence artificielle permettant
+              de discuter librement, partager ses pensées et recevoir des messages bienveillants.
+            </p>
+            <button type="button" id="enable-chat" class="enable-chat" aria-label="Activer le chat">
+              Activer le chat
+            </button>
+          </div>
         </div>
-
-        <form id="entryForm" class="entry-form">
-          <select id="moodSelectt">
-            <option value="joy">😀 Joyeux</option>
-            <option value="happy">🙂 Serein</option>
-            <option value="neutral">😐 Neutre</option>
-            <option value="sad">😞 Triste</option>
-            <option value="angry">😡 Énervé</option>
-          </select>
-          <input type="time" id="timeInput" step="">
-          <input type="text" id="causeBefore" placeholder="Cause">
-          <input type="text" id="causeAfter" placeholder="Conséquence">
-          
-          <select id="daySelect">
-            <option value="Lundi">Lundi</option>
-            <option value="Mardi">Mardi</option>
-            <option value="Mercredi">Mercredi</option>
-            <option value="Jeudi">Jeudi</option>
-            <option value="Vendredi">Vendredi</option>
-          </select>
-
-          
-          <button type="submit">Placer</button>
-        </form>
       </div>
     </header>
 
-    <!-- Zone calendrier -->
-    <main class="schedule-area">
-      <div class="schedule">
-        <div class="schedule-header">
-          <div></div>
-          <div>Lundi</div>
-          <div>Mardi</div>
-          <div>Mercredi</div>
-          <div>Jeudi</div>
-          <div>Vendredi</div>
-        </div>
-        <div id="scheduleGrid" class="schedule-grid"></div>
+    <!-- Mood picker -->
+    <main class="card" role="main" id="section-mood" aria-labelledby="mood-title">
+      <div class="container">
+        <h1 id="mood-title">Choisis ton mood 🌿</h1>
+
+        <label for="moodSelect" class="visually-hidden">Sélectionne ton mood</label>
+        <select id="moodSelect" aria-label="Sélection du mood">
+          <option value="">-- Sélectionne ton mood --</option>
+          <option value="joyeux">Joyeux(se) 😊</option>
+          <option value="fatigue">Fatigué(e) 😴</option>
+          <option value="colere">En colère 😠</option>
+          <option value="enerve">Énervé(e) 😤</option>
+          <option value="calme">Calme 🧘‍♀️</option>
+          <option value="triste">Triste 😢</option>
+        </select>
+
+        <button id="showMessage" type="button">Afficher ma phrase</button>
+        <p id="message" role="status" aria-live="polite"></p>
       </div>
     </main>
-  </div>
-    </div>
 
-  <div class="task-tracker" id="section-todo">
-  <h2>TO-DO-LIST</h2>
+    <!-- Mood scheduler -->
+    <section class="mood-tracker" id="section-tracker" aria-labelledby="tracker-title">
+      <h2 id="tracker-title" class="visually-hidden">Suivi du mood hebdomadaire</h2>
 
-  <!-- Formulaire d’ajout -->
-  <form id="todo-form" action="#" autocomplete="off">
-    <p for="todo-input">Nouvelle tâche :</p>
-    <input id="todo-input" name="task" type="text" placeholder="Ex. : Réviser I2C" required />
-    <button type="submit" id="todo-add-btn">Ajouter</button>
+      <div id="moodScheduler" class="moodScheduler">
+        <header class="top-chat">
+          <div class="chat-container">
+            <div id="chatWindow" class="chat-window" aria-live="polite" aria-atomic="false">
+              <div class="message system">Bienvenue — entrez votre mood et l'heure pour l’ajouter à l’emploi du temps.</div>
+            </div>
 
-    <select id="todo-filter" name="filter">
-      <option value="all" selected>Toutes</option>
-      <option value="active">Actives</option>
-      <option value="done">Terminées</option>
-    </select>
-  </form>
+            <form id="entryForm" class="entry-form" autocomplete="off">
+              <label for="moodSelectt">État</label>
+              <select id="moodSelectt" name="mood">
+                <option value="joy">😀 Joyeux</option>
+                <option value="happy">🙂 Serein</option>
+                <option value="neutral">😐 Neutre</option>
+                <option value="sad">😞 Triste</option>
+                <option value="angry">😡 Énervé</option>
+              </select>
 
-  <!-- Liste des tâches -->
-  <ul id="todo-list" aria-live="polite" aria-label="Liste des tâches">
-    <!-- Les tâches seront ajoutées ici -->
-  </ul>
+              <label for="timeInput">Heure</label>
+              <input type="time" id="timeInput" name="time" step="60" required>
 
-  <!-- Modèle d’item -->
-  <template id="todo-item-template">
-    <li class="todo-item" data-id="">
-      <label class="todo-item__label">
-        <input type="checkbox" class="todo-item__check" />
-        <span class="todo-item__text"></span>
-      </label>
-      <button type="button" class="todo-item__edit" aria-label="Modifier la tâche">✎</button>
-      <button type="button" class="todo-item__delete" aria-label="Supprimer la tâche">🗑</button>
-    </li>
-  </template>
+              <label for="causeBefore">Cause</label>
+              <input type="text" id="causeBefore" name="causeBefore" placeholder="Cause" aria-label="Cause avant le mood">
 
-  <!-- Pied de liste -->
-  <div id="todo-footer" class="todo-footer">
-    <span id="todo-count" aria-live="polite">0 tâche</span>
-    <button type="button" id="todo-clear-done">Supprimer les terminées</button>
-  </div>
-</div>
+              <label for="causeAfter">Conséquence</label>
+              <input type="text" id="causeAfter" name="causeAfter" placeholder="Conséquence" aria-label="Conséquence après le mood">
 
-    <script src="index.js"></script>
+              <label for="daySelect">Jour</label>
+              <select id="daySelect" name="day">
+                <option value="Lundi">Lundi</option>
+                <option value="Mardi">Mardi</option>
+                <option value="Mercredi">Mercredi</option>
+                <option value="Jeudi">Jeudi</option>
+                <option value="Vendredi">Vendredi</option>
+              </select>
+
+              <button type="submit">Placer</button>
+            </form>
+          </div>
+        </header>
+
+        <div class="schedule-area">
+          <div class="schedule" aria-label="Calendrier hebdomadaire des moods">
+            <div class="schedule-header">
+              <div class="time-col" aria-hidden="true"></div>
+              <div>Lundi</div>
+              <div>Mardi</div>
+              <div>Mercredi</div>
+              <div>Jeudi</div>
+              <div>Vendredi</div>
+            </div>
+            <div id="scheduleGrid" class="schedule-grid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Task tracker -->
+    <section class="task-tracker" id="section-todo" aria-labelledby="todo-title">
+      <h2 id="todo-title">TO-DO-LIST</h2>
+
+      <!-- Formulaire d’ajout -->
+      <form id="todo-form" action="#" autocomplete="off">
+        <label for="todo-input">Nouvelle tâche :</label>
+        <input id="todo-input" name="task" type="text" placeholder="Ex. : Réviser I2C" required />
+        <button type="submit" id="todo-add-btn">Ajouter</button>
+
+        <label for="todo-filter" class="visually-hidden">Filtrer les tâches</label>
+        <select id="todo-filter" name="filter">
+          <option value="all" selected>Toutes</option>
+          <option value="active">Actives</option>
+          <option value="done">Terminées</option>
+        </select>
+      </form>
+
+      <!-- Liste des tâches -->
+      <ul id="todo-list" aria-live="polite" aria-label="Liste des tâches"></ul>
+
+      <!-- Modèle d’item -->
+      <template id="todo-item-template">
+        <li class="todo-item" data-id="">
+          <label class="todo-item__label">
+            <input type="checkbox" class="todo-item__check" aria-label="Marquer la tâche comme terminée" />
+            <span class="todo-item__text"></span>
+          </label>
+          <button type="button" class="todo-item__edit" aria-label="Modifier la tâche">✎</button>
+          <button type="button" class="todo-item__delete" aria-label="Supprimer la tâche">🗑</button>
+        </li>
+      </template>
+
+      <!-- Pied de liste -->
+      <div id="todo-footer" class="todo-footer">
+        <span id="todo-count" aria-live="polite">0 tâche</span>
+        <button type="button" id="todo-clear-done">Supprimer les terminées</button>
+      </div>
+    </section>
+
+    <!-- Main script -->
+    <script src="index.js" defer></script>
+
+    <!-- Chat activation script -->
     <script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="iBxZNtJ-u9NrYZ0aMJO06";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
+      document.getElementById('enable-chat')?.addEventListener('click', () => {
+        (function(){
+          if(!window.chatbase || window.chatbase("getState")!=="initialized"){
+            window.chatbase=(...arguments)=>{
+              if(!window.chatbase.q){window.chatbase.q=[]}
+              window.chatbase.q.push(arguments)
+            };
+            window.chatbase=new Proxy(window.chatbase,{
+              get(target,prop){
+                if(prop==="q"){return target.q}
+                return(...args)=>target(prop,...args)
+              }
+            })
+          }
+          const script=document.createElement("script");
+          script.src="https://www.chatbase.co/embed.min.js";
+          script.id="iBxZNtJ-u9NrYZ0aMJO06";
+          script.domain="www.chatbase.co";
+          document.body.appendChild(script);
+        })();
+        document.getElementById('enable-chat').setAttribute('disabled','true');
+        document.getElementById('enable-chat').textContent = 'Chat activé';
+      });
+    </script>
   </body>
 </html>
