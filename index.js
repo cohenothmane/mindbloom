@@ -1,47 +1,103 @@
-// homme particule //
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+// =========================
+// Particules Header
+// =========================
+const headerCanvas = document.getElementById("particles");
+const headerCtx = headerCanvas.getContext("2d");
 
-let particles = [];
-let w, h;
+let headerParticles = [];
 
-function resize() {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
+function resizeHeaderCanvas() {
+  headerCanvas.width = window.innerWidth;
+  headerCanvas.height = window.innerHeight;
 }
-window.addEventListener("resize", resize);
-resize();
+window.addEventListener("resize", resizeHeaderCanvas);
+resizeHeaderCanvas();
 
-for (let i = 0; i < 80; i++) {
-  particles.push({
-    x: Math.random() * w,
-    y: Math.random() * h,
+for (let i = 0; i < 70; i++) {
+  headerParticles.push({
+    x: Math.random() * headerCanvas.width,
+    y: Math.random() * headerCanvas.height,
     r: Math.random() * 2 + 1,
     dx: (Math.random() - 0.5) * 0.5,
     dy: (Math.random() - 0.5) * 0.5,
   });
 }
 
-function draw() {
-  ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-  particles.forEach(p => {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fill();
-
+function drawHeaderParticles() {
+  headerCtx.clearRect(0, 0, headerCanvas.width, headerCanvas.height);
+  headerCtx.fillStyle = "rgba(230,122,163,0.5)";
+  headerParticles.forEach(p => {
+    headerCtx.beginPath();
+    headerCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    headerCtx.fill();
     p.x += p.dx;
     p.y += p.dy;
-
-    if (p.x < 0 || p.x > w) p.dx *= -1;
-    if (p.y < 0 || p.y > h) p.dy *= -1;
+    if (p.x < 0 || p.x > headerCanvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > headerCanvas.height) p.dy *= -1;
   });
-
-  requestAnimationFrame(draw);
+  requestAnimationFrame(drawHeaderParticles);
 }
-draw();
+drawHeaderParticles();
+
 
 // ========== Mood picker ==========
+
+
+// =========================
+// Bloom Mood Picker
+// =========================
+const bloomCanvas = document.getElementById("bloomCanvas");
+const bloomCtx = bloomCanvas.getContext("2d");
+
+function resizeBloomCanvas() {
+  bloomCanvas.width = window.innerWidth;
+  bloomCanvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeBloomCanvas);
+resizeBloomCanvas();
+
+class Petal {
+  constructor() {
+    this.x = Math.random() * bloomCanvas.width;
+    this.y = Math.random() * bloomCanvas.height;
+    this.size = Math.random() * 2 + 1;
+    this.opacity = Math.random() * 0.8 + 0.2;
+    this.angle = Math.random() * Math.PI * 2;
+    this.speed = Math.random() * 0.5 + 0.1;
+    this.color = `rgba(255, ${150 + Math.random() * 50}, ${200 + Math.random() * 50}, ${this.opacity})`;
+  }
+  draw() {
+    bloomCtx.save();
+    bloomCtx.translate(this.x, this.y);
+    bloomCtx.rotate(this.angle);
+    bloomCtx.beginPath();
+    bloomCtx.ellipse(0, 0, this.size * 2, this.size, 0, 0, Math.PI * 2);
+    bloomCtx.fillStyle = this.color;
+    bloomCtx.fill();
+    bloomCtx.restore();
+  }
+  update() {
+    this.angle += 0.002;
+    this.y -= this.speed * 0.5;
+    if (this.y < -10) {
+      this.y = bloomCanvas.height + 10;
+      this.x = Math.random() * bloomCanvas.width;
+    }
+    this.draw();
+  }
+}
+
+let petals = [];
+for (let i = 0; i < 60; i++) petals.push(new Petal());
+
+function animateBloom() {
+  bloomCtx.clearRect(0, 0, bloomCanvas.width, bloomCanvas.height);
+  petals.forEach(p => p.update());
+  requestAnimationFrame(animateBloom);
+}
+animateBloom();
+
+
 const moodSelect = document.getElementById("moodSelect");
 const showMessage = document.getElementById("showMessage");
 const message = document.getElementById("message");
