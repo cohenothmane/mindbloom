@@ -25,19 +25,6 @@ html, body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Accessible helpers */
-.visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0 0 0 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
-
 /* Focus styles */
 button, select, input { font-family: inherit; }
 button:focus, select:focus, input:focus {
@@ -106,7 +93,7 @@ section h2::after, main h1::after {
    Home hero
    ========================= */
 .home {
-  position: relative; /* pour que le #particles soit positionné dedans */
+  position: relative; 
   overflow: hidden;
   width: 100vw;
   min-height: 100vh;
@@ -199,8 +186,6 @@ h1 {
   gap: 20px;
 }
 
-
-
 #bloomCanvas {
   position: absolute;
   top: 0;
@@ -211,12 +196,6 @@ h1 {
   pointer-events: none;
   background: transparent;
 }
-
-
-
-
-
-
 
 #mood-title {
   font-size: 2rem;
