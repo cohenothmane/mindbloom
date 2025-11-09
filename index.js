@@ -39,12 +39,8 @@ function drawHeaderParticles() {
 }
 drawHeaderParticles();
 
-
-// ========== Mood picker ==========
-
-
 // =========================
-// Bloom Mood Picker
+// Bloom Particles
 // =========================
 const bloomCanvas = document.getElementById("bloomCanvas");
 const bloomCtx = bloomCanvas.getContext("2d");
@@ -96,6 +92,8 @@ function animateBloom() {
   requestAnimationFrame(animateBloom);
 }
 animateBloom();
+
+// ========== Mood picker ==========
 
 
 const moodSelect = document.getElementById("moodSelect");
